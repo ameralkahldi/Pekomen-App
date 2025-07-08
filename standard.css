@@ -1,0 +1,11 @@
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none !important;
+}
+body{
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
