@@ -36,14 +36,25 @@ async function detailPokemon(pokemon) {
 }
 
 async function ShowPokemonById(id) {
-  const container = document.getElementById("detailPokemonId");
- 
+  const container = document.getElementById("pokemon_list");
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     if (!response.ok || response.status === 404)
-      throw new Error("Pokémon not found");
+      throw new Error("Pokemon not found");
     const detailpokemon = await response.json();
-    detailPokemonId.innerHTML = templateRenderDetailPokemon(detailpokemon);}
+    detailPokemonId.innerHTML = templateRenderDetailPokemon(detailpokemon);
+  popupElement()}
   
 
+    function popupElement() {
+  document.getElementById("detailPokemonId").classList.add("popup_active");
+}
+
+function close_popup(event) {
+  document.getElementById("detailPokemonId").classList.toggle("popup_active");
+  event.stopPropagation();
+}
+function stop_event(event) {
+  event.stopPropagation();
+}
 
 

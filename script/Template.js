@@ -22,8 +22,8 @@ function templateRenderPokemon(detailpokemon) {
 
 function templateRenderDetailPokemon(detailpokemon){
     return `
-        <div class="contain" >
-            <div class="modale">
+        <div class="contain" onclick="close_popup(event)">
+            <div class="modale" onclick="stop_event(event)">
                 <div class="bg-danger p-3">
                     <div class="modal-header">
                         <h5 class="modal-title fs-5" >#${detailpokemon.name.toUpperCase()}</h5>
