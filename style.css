@@ -27,9 +27,7 @@ a {
   margin-top: 10px;
   margin-bottom: 10px;}
 
-.desactive {
-  display: none !important;
-}
+
   .card {
   width: 200px;
   height: 300px;
@@ -55,6 +53,11 @@ a {
   transition: transform 3s ease;
 }
 
+
+.modal_image {
+  border-radius: 5px;
+}
+
 .contain {
   display: flex;
   justify-content: center;
@@ -70,6 +73,5 @@ a {
   height: 700px;
   border-radius: 10px;
 }
-
 
 

@@ -22,15 +22,9 @@ function templateRenderPokemon(detailpokemon) {
 
 function templateRenderDetailPokemon(detailpokemon){
     return `
-        <div class="contain" onclick="close_popup(event)">
-            <div class="modale" onclick="stop_event(event)">
-                <div class="">
-                    <button class="" type="button" data-bs-slide="prev" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" aria-label="Previous" style="border: none; background-color: transparent;" onclick="prev(${detailpokemon.id}, event)">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                </div>
-                <div class="bg-secondary p-3">
+        <div class="contain" >
+            <div class="modale">
+                <div class="bg-danger p-3">
                     <div class="modal-header">
                         <h5 class="modal-title fs-5" >#${detailpokemon.name.toUpperCase()}</h5>
                         <button type="button" class="btn-close" onclick="close_popup(event)"></button>
