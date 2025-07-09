@@ -1,9 +1,5 @@
 const url = "https://pokeapi.co/api/v2/pokemon";
 let pokemon_list = document.getElementById("pokemons");
-let loadMoreBtn = document.getElementById('loadmore');
-let searchInput = document.getElementById("input_search");
-const mainContain = document.getElementById("main");
-const loading = document.getElementById("loading");
 const detailPokemonId = document.getElementById("detailPokemonId");
 const pokemonAlreadyLoaded = {};
 
@@ -56,5 +52,18 @@ function close_popup(event) {
 function stop_event(event) {
   event.stopPropagation();
 }
+
+function prev(id, event) {
+  let lastId = 20;
+  const newId = id > 1 ? id - 1 : lastId;
+  ShowPokemonById(newId);
+  event.stopPropagation();
+}
+
+function next(id, event) {
+  const lastId = 20;
+  const newId = id < lastId ? id + 1 : 1;
+  ShowPokemonById(newId);
+  event.stopPropagation();}
 
 

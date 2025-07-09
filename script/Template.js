@@ -24,6 +24,10 @@ function templateRenderDetailPokemon(detailpokemon){
     return `
         <div class="contain" onclick="close_popup(event)">
             <div class="modale" onclick="stop_event(event)">
+             <button class="" type="button" data-bs-slide="prev" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" aria-label="Previous" style="border: none; background-color: transparent;" onclick="prev(${detailpokemon.id}, event)">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
                 <div class="bg-danger p-3">
                     <div class="modal-header">
                         <h5 class="modal-title fs-5" >#${detailpokemon.name.toUpperCase()}</h5>
@@ -63,4 +67,12 @@ function templateRenderDetailPokemon(detailpokemon){
                         </div>           
                     </div>
                 </div>
-                <div>    `;}
+                <div>
+                <button class="" type="button"  data-bs-slide="next" style="border: none; background-color: transparent;" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop" aria-label="Next" onclick="next(${detailpokemon.id}, event)">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+               
+        
+                
+                `;}
