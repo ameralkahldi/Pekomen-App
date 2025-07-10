@@ -1,47 +1,61 @@
-const url = "https://pokeapi.co/api/v2/pokemon";
+const url = "https://pokeapi.co/api/v2/pokemon?limit=50&offset=0";
 let pokemon_list = document.getElementById("pokemons");
 const detailPokemonId = document.getElementById("detailPokemonId");
-const pokemonAlreadyLoaded = {};
 
+const pokemonAlreadyLoaded = [];
 
-function init(){
-    renderPokemon()
-    ShowPokemonById()
-
+function init() {
+  renderPokemon();
+  ShowPokemonById();
 }
+
 
 
 async function renderPokemon() {
-  const response = await fetch(url);
-  const data = await response.json();
-  data.results.forEach(detailPokemon);
-}
+
+    const response = await fetch(url);
+    const data = await response.json();
+    const promises = data.results.map(pokemon => detailPokemon(pokemon));
+    const allPokemon = await Promise.all(promises);
+    allPokemon.forEach(detailpokemon => {
+      pokemon_list.innerHTML += templateRenderPokemon(detailpokemon);
+    });
+  } 
 
 
 async function detailPokemon(pokemon) {
-  let detailpokemon;
-  if(pokemonAlreadyLoaded[pokemon.name]){
-    detailpokemon = pokemonAlreadyLoaded[pokemon.name];
-  }else{
-    const detailResponse = await fetch(pokemon.url)
-    detailpokemon = await detailResponse.json();
-    pokemonAlreadyLoaded[pokemon.name] = detailpokemon;
+  if (pokemonAlreadyLoaded[pokemon.name]) {
+    return pokemonAlreadyLoaded[pokemon.name];
+  } else {
+    const response = await fetch(pokemon.url);
+    const detailData = await response.json();
+    pokemonAlreadyLoaded[pokemon.name] = detailData;
+    return detailData;
   }
-  pokemon_list.innerHTML += templateRenderPokemon(detailpokemon);
-  
 }
 
+
 async function ShowPokemonById(id) {
-  const container = document.getElementById("pokemon_list");
+  if (!id) return;
+
+  try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-    if (!response.ok || response.status === 404)
+    if (!response.ok) {
       throw new Error("Pokemon not found");
+    }
+
     const detailpokemon = await response.json();
     detailPokemonId.innerHTML = templateRenderDetailPokemon(detailpokemon);
-  popupElement()}
-  
+    popupElement();
+  } catch (error) {
+    console.error(error);
+    alert("Pokemon not found!");
+  }
+}
 
-    function popupElement() {
+
+
+function popupElement() {
   document.getElementById("detailPokemonId").classList.add("popup_active");
 }
 
@@ -54,16 +68,26 @@ function stop_event(event) {
 }
 
 function prev(id, event) {
-  let lastId = 20;
-  const newId = id > 1 ? id - 1 : lastId;
+  const newId = id > 1 ? id - 1 : 20;
   ShowPokemonById(newId);
   event.stopPropagation();
 }
 
 function next(id, event) {
-  const lastId = 20;
-  const newId = id < lastId ? id + 1 : 1;
+  const newId = id < 20 ? id + 1 : 1;
   ShowPokemonById(newId);
-  event.stopPropagation();}
+  event.stopPropagation();
+}
 
 
+
+async function searchePokemon() {
+  const input = document.getElementById("input_search").value.trim();
+  if (!input)
+    try {
+      await ShowPokemonById(input);
+    } catch (error) {
+      alert("Pokemon not found.Plase try another name ot ID .");
+      console.log(error);
+    }
+}
