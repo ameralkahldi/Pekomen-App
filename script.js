@@ -1,12 +1,16 @@
 const url = "https://pokeapi.co/api/v2/pokemon?limit=50&offset=0";
 let pokemon_list = document.getElementById("pokemons");
 const detailPokemonId = document.getElementById("detailPokemonId");
+ const searchInput = document.getElementById("searchInput");
 
 const pokemonAlreadyLoaded = [];
 
 function init() {
   renderPokemon();
   ShowPokemonById();
+  searchInput.addEventListener("input", searchPokemon);
+  
+
 }
 
 
@@ -59,19 +63,24 @@ function popupElement() {
   document.getElementById("detailPokemonId").classList.add("popup_active");
 }
 
+
 function close_popup(event) {
   document.getElementById("detailPokemonId").classList.toggle("popup_active");
   event.stopPropagation();
+
+
 }
 function stop_event(event) {
   event.stopPropagation();
 }
+
 
 function prev(id, event) {
   const newId = id > 1 ? id - 1 : 20;
   ShowPokemonById(newId);
   event.stopPropagation();
 }
+
 
 function next(id, event) {
   const newId = id < 20 ? id + 1 : 1;
@@ -81,13 +90,18 @@ function next(id, event) {
 
 
 
-async function searchePokemon() {
-  const input = document.getElementById("input_search").value.trim();
-  if (!input)
-    try {
-      await ShowPokemonById(input);
-    } catch (error) {
-      alert("Pokemon not found.Plase try another name ot ID .");
-      console.log(error);
+function searchPokemon() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+
+  pokemon_list.innerHTML = ""; 
+
+  for (let name in pokemonAlreadyLoaded) {
+    if (name.toLowerCase().includes(input)) {
+      const pokemon = pokemonAlreadyLoaded[name];
+      pokemon_list.innerHTML += templateRenderPokemon(pokemon);
     }
+  
+  }
+
 }
+

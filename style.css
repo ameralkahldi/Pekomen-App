@@ -32,6 +32,9 @@ a {
   display: none !important;
 }
 
+.card-header:hover{
+  background-color: rgb(187, 167, 167);
+}
 .card {
   width: 200px;
   height: 300px;
@@ -49,6 +52,9 @@ a {
   height: 100px;
   transform: scale(1.2);
   transition: transform 2s ease;
+}
+.image:hover {
+  transform: rotateY(200deg);
 }
 .modale img {
   width: 200px;
@@ -97,10 +103,7 @@ a {
     width: 400px;
     height: 400px;
   }
-  .show_element {
-    display: flex;
-    flex-direction: column;
-  }
+
 
   .contain {
     margin: auto 0;

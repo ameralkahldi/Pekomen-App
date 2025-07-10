@@ -4,7 +4,7 @@ function templateRenderPokemon(detailpokemon) {
         <div class="card m-1" onclick="ShowPokemonById(${detailpokemon.id})">
             <div class="card-header bg-secondary text-white">
                 <span class="fst-normal fs-6">
-                    #${detailpokemon.id} - ${detailpokemon.name}
+                    #${detailpokemon.id} - ${detailpokemon.name.toUpperCase()}
                 </span>
             </div>
             <div class="card-body ${
