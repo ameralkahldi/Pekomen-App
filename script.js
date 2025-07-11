@@ -15,14 +15,30 @@ function init() {
 
 
 async function renderPokemon() {
+  const spinner = document.getElementById("loadingSpinner");
+  spinner.style.display = "block"; // ✅ Show spinner before fetch starts
+
+  try {
     const response = await fetch(url);
     const data = await response.json();
+
     const promises = data.results.map(pokemon => detailPokemon(pokemon));
     const allPokemon = await Promise.all(promises);
+
+    pokemon_list.innerHTML = ""; // ✅ Clear the list before rendering
+
     allPokemon.forEach(detailpokemon => {
       pokemon_list.innerHTML += templateRenderPokemon(detailpokemon);
     });
-  } 
+
+  } catch (error) {
+    console.error("Failed to load Pokémon:", error);
+    alert("Something went wrong while loading Pokémon.");
+  } finally {
+    spinner.style.display = "none"; // ✅ Hide spinner after load (or on error)
+  }
+}
+
 
 
 async function detailPokemon(pokemon) {
@@ -39,6 +55,9 @@ async function detailPokemon(pokemon) {
 
 async function ShowPokemonById(id) {
   if (!id) return;
+  const spinner = document.getElementById("loadingSpinner");
+  spinner.style.display = "block"; // Show spinner
+
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     if (!response.ok) {
@@ -51,8 +70,11 @@ async function ShowPokemonById(id) {
   } catch (error) {
     console.error(error);
     alert("Pokemon not found!");
+  } finally {
+    spinner.style.display = "none"; // Hide spinner
   }
 }
+
 
 
 
@@ -73,14 +95,14 @@ function stop_event(event) {
 
 
 function prev(id, event) {
-  const newId = id > 1 ? id - 1 : 20;
+  const newId = id > 1 ? id - 1 : 50;
   ShowPokemonById(newId);
   event.stopPropagation();
 }
 
 
 function next(id, event) {
-  const newId = id < 20 ? id + 1 : 1;
+  const newId = id < 50 ? id + 1 : 1;
   ShowPokemonById(newId);
   event.stopPropagation();
 }
@@ -89,14 +111,22 @@ function next(id, event) {
 
 function searchPokemon() {
   const input = document.getElementById("searchInput").value.toLowerCase();
-  pokemon_list.innerHTML = ""; 
-  for (let name in pokemonAlreadyLoaded) {
-    if (name.toLowerCase().includes(input)) {
-      const pokemon = pokemonAlreadyLoaded[name];
-      pokemon_list.innerHTML += templateRenderPokemon(pokemon);
-    }
-  
-  }
+  const spinner = document.getElementById("loadingSpinner");
 
+  spinner.style.display = "block"; // Show spinner before filtering
+
+  // Use timeout to simulate async (optional, can skip if not needed)
+  setTimeout(() => {
+    pokemon_list.innerHTML = "";
+
+    for (let name in pokemonAlreadyLoaded) {
+      if (name.toLowerCase().includes(input)) {
+        const pokemon = pokemonAlreadyLoaded[name];
+        pokemon_list.innerHTML += templateRenderPokemon(pokemon);
+      }
+    }
+
+    spinner.style.display = "none"; // Hide spinner after rendering
+  }, 1000); // Slight delay for smooth feedback
 }
 
