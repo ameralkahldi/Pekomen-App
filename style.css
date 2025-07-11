@@ -98,6 +98,19 @@ a {
 .popup_active {
   display: inline-flex;
 }
+
+.footer-last{
+  background-color: #0a222c;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.footer-last a{
+
+  font-weight: 600;
+}
 @media (max-width: 700px) {
   .modale {
     width: 400px;
@@ -109,7 +122,7 @@ a {
     margin: auto 0;
   }
   .modale img {
-    width: 300px;
+    width: 200px;
     height: 200px;
   }
 }
@@ -124,7 +137,5 @@ a {
     flex-direction: column;
   }
 
-  .contain {
-    margin: auto 0;
-  }
+ 
 }

@@ -2,21 +2,19 @@ const url = "https://pokeapi.co/api/v2/pokemon?limit=50&offset=0";
 let pokemon_list = document.getElementById("pokemons");
 const detailPokemonId = document.getElementById("detailPokemonId");
  const searchInput = document.getElementById("searchInput");
-
 const pokemonAlreadyLoaded = [];
+
 
 function init() {
   renderPokemon();
   ShowPokemonById();
   searchInput.addEventListener("input", searchPokemon);
   
-
 }
 
 
 
 async function renderPokemon() {
-
     const response = await fetch(url);
     const data = await response.json();
     const promises = data.results.map(pokemon => detailPokemon(pokemon));
@@ -41,7 +39,6 @@ async function detailPokemon(pokemon) {
 
 async function ShowPokemonById(id) {
   if (!id) return;
-
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     if (!response.ok) {
@@ -92,9 +89,7 @@ function next(id, event) {
 
 function searchPokemon() {
   const input = document.getElementById("searchInput").value.toLowerCase();
-
   pokemon_list.innerHTML = ""; 
-
   for (let name in pokemonAlreadyLoaded) {
     if (name.toLowerCase().includes(input)) {
       const pokemon = pokemonAlreadyLoaded[name];
