@@ -1,4 +1,3 @@
-// دالة العرض المنفصلة (أفضل للأداء)
 function templateRenderPokemon(detailpokemon) {
   return `
         <div class="card m-1" onclick="ShowPokemonById(${detailpokemon.id})">
@@ -106,7 +105,6 @@ function templateRenderDetailPokemon(detailpokemon) {
                         <span class="visually-hidden">Next</span>
                     </button>
                
-        
-                
+    
                 `;
 }

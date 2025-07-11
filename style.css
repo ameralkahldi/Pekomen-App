@@ -28,9 +28,7 @@ a {
   margin-bottom: 10px;
 }
 
-.desactive {
-  display: none !important;
-}
+
 
 .card-header:hover{
   background-color: rgb(187, 167, 167);
@@ -115,7 +113,7 @@ a {
 
 .footer-last{
   background-color: #0a222c;
-  height: 100px;
+ min-height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,10 +129,6 @@ a {
     height: 400px;
   }
 
-
-  .contain {
-    margin: auto 0;
-  }
   .modale img {
     width: 200px;
     height: 200px;

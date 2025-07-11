@@ -1,7 +1,7 @@
 const url = "https://pokeapi.co/api/v2/pokemon?limit=50&offset=0";
 let pokemon_list = document.getElementById("pokemons");
 const detailPokemonId = document.getElementById("detailPokemonId");
- const searchInput = document.getElementById("searchInput");
+const searchInput = document.getElementById("searchInput");
 const pokemonAlreadyLoaded = [];
 
 
@@ -9,36 +9,32 @@ function init() {
   renderPokemon();
   ShowPokemonById();
   searchInput.addEventListener("input", searchPokemon);
-  
 }
-
 
 
 async function renderPokemon() {
   const spinner = document.getElementById("loadingSpinner");
-  spinner.style.display = "block"; // ✅ Show spinner before fetch starts
+  spinner.style.display = "block";
 
   try {
     const response = await fetch(url);
     const data = await response.json();
 
-    const promises = data.results.map(pokemon => detailPokemon(pokemon));
+    const promises = data.results.map((pokemon) => detailPokemon(pokemon));
     const allPokemon = await Promise.all(promises);
 
-    pokemon_list.innerHTML = ""; // ✅ Clear the list before rendering
+    pokemon_list.innerHTML = "";
 
-    allPokemon.forEach(detailpokemon => {
+    allPokemon.forEach((detailpokemon) => {
       pokemon_list.innerHTML += templateRenderPokemon(detailpokemon);
     });
-
   } catch (error) {
     console.error("Failed to load Pokémon:", error);
     alert("Something went wrong while loading Pokémon.");
   } finally {
-    spinner.style.display = "none"; // ✅ Hide spinner after load (or on error)
+    spinner.style.display = "none";
   }
 }
-
 
 
 async function detailPokemon(pokemon) {
@@ -56,7 +52,7 @@ async function detailPokemon(pokemon) {
 async function ShowPokemonById(id) {
   if (!id) return;
   const spinner = document.getElementById("loadingSpinner");
-  spinner.style.display = "block"; // Show spinner
+  spinner.style.display = "block";
 
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -71,11 +67,9 @@ async function ShowPokemonById(id) {
     console.error(error);
     alert("Pokemon not found!");
   } finally {
-    spinner.style.display = "none"; // Hide spinner
+    spinner.style.display = "none";
   }
 }
-
-
 
 
 function popupElement() {
@@ -86,9 +80,9 @@ function popupElement() {
 function close_popup(event) {
   document.getElementById("detailPokemonId").classList.toggle("popup_active");
   event.stopPropagation();
-
-
 }
+
+
 function stop_event(event) {
   event.stopPropagation();
 }
@@ -108,14 +102,12 @@ function next(id, event) {
 }
 
 
-
 function searchPokemon() {
   const input = document.getElementById("searchInput").value.toLowerCase();
   const spinner = document.getElementById("loadingSpinner");
 
-  spinner.style.display = "block"; // Show spinner before filtering
+  spinner.style.display = "block";
 
-  // Use timeout to simulate async (optional, can skip if not needed)
   setTimeout(() => {
     pokemon_list.innerHTML = "";
 
@@ -126,7 +118,6 @@ function searchPokemon() {
       }
     }
 
-    spinner.style.display = "none"; // Hide spinner after rendering
-  }, 1000); // Slight delay for smooth feedback
+    spinner.style.display = "none";
+  }, 1000);
 }
-
