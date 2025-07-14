@@ -1,4 +1,3 @@
-// دالة العرض المنفصلة (أفضل للأداء)
 function templateRenderPokemon(detailpokemon) {
   return `
         <div class="card m-1">
