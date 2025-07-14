@@ -8,7 +8,7 @@ const limit = 25;
 
 
 function init() {
-  loadMore(); // statt renderPokemon
+  loadMore(); 
   searchInput.addEventListener("input", searchPokemon);
 }
 
@@ -16,25 +16,27 @@ function init() {
 async function loadMore() {
   const spinner = document.getElementById("loadingSpinner");
   spinner.style.display = "block";
-
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
     const data = await response.json();
-
     const promises = data.results.map(pokemon => detailPokemon(pokemon));
     const newPokemon = await Promise.all(promises);
-
-    newPokemon.forEach(pokemon => {
-      document.getElementById("pokemons").innerHTML += templateRenderPokemon(pokemon);
-    });
-
+    loade(newPokemon);
     offset += limit;
   } catch (error) {
-    console.error("Fehler beim Laden weiterer Pokémon:", error);
+    console.error("Fehler beim Laden weiterer Pokemon:", error);
     alert("Fehler beim Laden weiterer Pokémon.");
   } finally {
     spinner.style.display = "none";
   }
+}
+
+
+
+function loade(newPokemon){
+  newPokemon.forEach(pokemon => {
+      document.getElementById("pokemons").innerHTML += templateRenderPokemon(pokemon);
+    });
 }
 
 
