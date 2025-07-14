@@ -25,6 +25,7 @@
           <button class="btn btn-outline-secondary" onclick="searchPokemon()">
             Search
           </button>
+          
           </div>
         </div>
       </div>
@@ -33,6 +34,8 @@
   <main class="bg-dark" id="main">
     <div class="container">
       <div class="pokemon_liste" id="pokemons"></div>
+      <div id="errorMessage" style="color: red; margin-top: 8px; text-align: center;"></div>
+
       <button onclick="loadMore()" id="loadMoreBtn" class="btn btn-warning my-4 mx-auto d-block">
   Mehr laden
 </button>
@@ -41,6 +44,7 @@
         </div>
        <div id="loadingSpinner" class="spinner" style="display: none;">
 </div>
+
         </div>
       </div>
     </main>

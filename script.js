@@ -12,22 +12,30 @@ function init() {
   searchInput.addEventListener("input", searchPokemon);
 }
 
-async function renderPokemon() {
+
+async function loadMore() {
   const spinner = document.getElementById("loadingSpinner");
   spinner.style.display = "block";
+
   try {
-    const response = await fetch(url);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
     const data = await response.json();
-    const promises = data.results.map((pokemon) => detailPokemon(pokemon));
-    const allPokemon = await Promise.all(promises);
-    pokemon_list.innerHTML = "";
-    allPokemon.forEach((detailpokemon) => {
-      pokemon_list.innerHTML += templateRenderPokemon(detailpokemon); });
+
+    const promises = data.results.map(pokemon => detailPokemon(pokemon));
+    const newPokemon = await Promise.all(promises);
+
+    newPokemon.forEach(pokemon => {
+      document.getElementById("pokemons").innerHTML += templateRenderPokemon(pokemon);
+    });
+
+    offset += limit;
   } catch (error) {
-    console.error("Failed to load Pokémon:", error);
-    alert("Something went wrong while loading Pokémon.");
+    console.error("Fehler beim Laden weiterer Pokémon:", error);
+    alert("Fehler beim Laden weiterer Pokémon.");
   } finally {
-    spinner.style.display = "none";} }
+    spinner.style.display = "none";
+  }
+}
 
 
 
@@ -41,6 +49,7 @@ async function detailPokemon(pokemon) {
     return detailData;
   }
 }
+
 
 
 async function ShowPokemonById(id) {
@@ -97,23 +106,33 @@ function next(id, event) {
 
 
 function searchPokemon() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
+  const input = searchInput.value.toLowerCase();
   const spinner = document.getElementById("loadingSpinner");
+  const errorMessage = document.getElementById("errorMessage");
 
   spinner.style.display = "block";
+  errorMessage.style.display = "none";
+  errorMessage.innerText = "";
 
   setTimeout(() => {
     pokemon_list.innerHTML = "";
+    let found = false;
 
     for (let name in pokemonAlreadyLoaded) {
       if (name.toLowerCase().includes(input)) {
         const pokemon = pokemonAlreadyLoaded[name];
         pokemon_list.innerHTML += templateRenderPokemon(pokemon);
+        found = true;
       }
     }
 
+    if (!found) {
+      errorMessage.innerText = "❌ Kein Pokémon gefunden!";
+      errorMessage.style.display = "block";
+    }
+
     spinner.style.display = "none";
-  }, 1000);
+  }, 800);
 }
 
 

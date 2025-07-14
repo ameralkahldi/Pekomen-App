@@ -40,9 +40,8 @@ a {
   flex-direction: row;
   margin-top: 10px;
   margin-bottom: 10px;
+  min-height: calc(102vh - 335px);
 }
-
-
 
 .card-header:hover{
   background-color: rgb(187, 167, 167);
