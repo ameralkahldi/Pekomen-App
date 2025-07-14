@@ -1,40 +1,34 @@
-const url = "https://pokeapi.co/api/v2/pokemon?limit=50&offset=0";
+const url = "https://pokeapi.co/api/v2/pokemon?limit=100&offset=0";
 let pokemon_list = document.getElementById("pokemons");
 const detailPokemonId = document.getElementById("detailPokemonId");
 const searchInput = document.getElementById("searchInput");
 const pokemonAlreadyLoaded = [];
+let offset = 0;
+const limit = 20;
 
 
 function init() {
-  renderPokemon();
-  ShowPokemonById();
+  loadMore(); // statt renderPokemon
   searchInput.addEventListener("input", searchPokemon);
 }
-
 
 async function renderPokemon() {
   const spinner = document.getElementById("loadingSpinner");
   spinner.style.display = "block";
-
   try {
     const response = await fetch(url);
     const data = await response.json();
-
     const promises = data.results.map((pokemon) => detailPokemon(pokemon));
     const allPokemon = await Promise.all(promises);
-
     pokemon_list.innerHTML = "";
-
     allPokemon.forEach((detailpokemon) => {
-      pokemon_list.innerHTML += templateRenderPokemon(detailpokemon);
-    });
+      pokemon_list.innerHTML += templateRenderPokemon(detailpokemon); });
   } catch (error) {
     console.error("Failed to load Pokémon:", error);
     alert("Something went wrong while loading Pokémon.");
   } finally {
-    spinner.style.display = "none";
-  }
-}
+    spinner.style.display = "none";} }
+
 
 
 async function detailPokemon(pokemon) {
@@ -89,14 +83,14 @@ function stop_event(event) {
 
 
 function prev(id, event) {
-  const newId = id > 1 ? id - 1 : 50;
+  const newId = id > 1 ? id - 1 : 100;
   ShowPokemonById(newId);
   event.stopPropagation();
 }
 
 
 function next(id, event) {
-  const newId = id < 50 ? id + 1 : 1;
+  const newId = id < 100 ? id + 1 : 1;
   ShowPokemonById(newId);
   event.stopPropagation();
 }
@@ -120,4 +114,30 @@ function searchPokemon() {
 
     spinner.style.display = "none";
   }, 1000);
+}
+
+
+
+async function loadMore() {
+  const spinner = document.getElementById("loadingSpinner");
+  spinner.style.display = "block";
+
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`);
+    const data = await response.json();
+
+    const promises = data.results.map(pokemon => detailPokemon(pokemon));
+    const newPokemon = await Promise.all(promises);
+
+    newPokemon.forEach(pokemon => {
+      document.getElementById("pokemons").innerHTML += templateRenderPokemon(pokemon);
+    });
+
+    offset += limit;
+  } catch (error) {
+    console.error("Fehler beim Laden weiterer Pokémon:", error);
+    alert("Fehler beim Laden weiterer Pokémon.");
+  } finally {
+    spinner.style.display = "none";
+  }
 }

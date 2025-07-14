@@ -8,10 +8,24 @@ a {
 
 .navbar {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
   flex-direction: row;
   background-color: #0a222c;
   padding: 30px;
+  gap: 200px;
+  
 }
+.button-searche{
+  color: #0a222c;
+   border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  height: 30px;
+  padding: 20px;
+ 
+}
+
 
 .navbar-brand img {
   width: 30px;
@@ -70,6 +84,7 @@ a {
   justify-content: center;
   align-items: center;
   margin: auto;
+  width: 700px;
 }
 
 .modale {
@@ -105,6 +120,13 @@ a {
   animation: spin 1s linear infinite;
   margin: 20px auto;
 }
+#loadMoreBtn {
+  margin: 20px auto;
+  display: block;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -132,6 +154,9 @@ a {
   .modale img {
     width: 200px;
     height: 200px;
+  }
+  .navbar{
+    gap: 20px;
   }
 }
 

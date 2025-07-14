@@ -18,12 +18,14 @@
 <body onload="init()">
   <header>
     <nav class="navbar">
-        <a class="navbar-brand" href="./index.html"><img src="./img/pokemon_logo.png" alt="Pokemon"/>POKEMON</a>
-        <div class="d-flex mb-1">
-          <input class="form-control me-2" type="search" id="searchInput" placeholder="Search a pokemon" aria-label="Search" />
+      <div class="foto-pek">
+        <a class="navbar-brand" href="./index.html"><img src="./img/pokemon_logo.png" alt="Pokemon"/>POKEMON</a></div>
+        <div class="input_serche">
+          <input class="button-searche" type="search" id="searchInput" placeholder="Search a pokemon" aria-label="Search" />
           <button class="btn btn-outline-secondary" onclick="searchPokemon()">
             Search
           </button>
+          </div>
         </div>
       </div>
     </nav>
@@ -31,12 +33,14 @@
   <main class="bg-dark" id="main">
     <div class="container">
       <div class="pokemon_liste" id="pokemons"></div>
+      <button onclick="loadMore()" id="loadMoreBtn" class="btn btn-warning my-4 mx-auto d-block">
+  Mehr laden
+</button>
+
      <div id="detailPokemonId" class="showw_element">
         </div>
        <div id="loadingSpinner" class="spinner" style="display: none;">
-  
 </div>
-          
         </div>
       </div>
     </main>
