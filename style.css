@@ -37,16 +37,6 @@ header {
   height: 40px;
   margin-right: 10px;
 }
-.foto-pek{
-}
-
-.input_serche {
-  display: flex;
-  gap: 10px;
-
-
-}
-
 
 .button-searche {
   padding: 10px;
@@ -54,15 +44,6 @@ header {
   border-radius: 4px;
   font-size: 16px;
   color: #0a222c;
-}
-
-.btn {
-  padding: 10px 15px;
-  background-color: #1b263b;
-  color: white;
-  border: 1px solid #415a77;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .btn:hover {
@@ -84,7 +65,7 @@ header {
   flex-direction: row;
   margin-top: 10px;
   margin-bottom: 10px;
-  min-height: calc(112vh - 345px);
+  min-height: calc(113vh - 345px);
 
 }
 
