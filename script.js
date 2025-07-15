@@ -120,10 +120,10 @@ function searchPokemon() {
   } else {
     loadMoreButton.style.display = "block";
   }
-
   setTimeout(() => {
     const filteredPokemon = Object.entries(pokemonAlreadyLoaded)
-      .filter(([name]) => name.toLowerCase().includes(input));
+      .filter(([name]) => name.toLowerCase().includes(input))
+      .sort(([, a], [, b]) => a.id - b.id); 
 
     if (filteredPokemon.length > 0) {
       const renderedHTML = filteredPokemon
@@ -136,9 +136,9 @@ function searchPokemon() {
       errorMessage.innerText = "❌ Kein Pokémon gefunden!";
       errorMessage.style.display = "block";
       loadMoreButton.style.display = "none";
-
     }
 
     spinner.style.display = "none";
   }, 800);
 }
+
