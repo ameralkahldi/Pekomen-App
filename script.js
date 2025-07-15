@@ -58,13 +58,11 @@ async function ShowPokemonById(id) {
   if (!id) return;
   const spinner = document.getElementById("loadingSpinner");
   spinner.style.display = "block";
-
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     if (!response.ok) {
       throw new Error("Pokemon not found");
     }
-
     const detailpokemon = await response.json();
     detailPokemonId.innerHTML = templateRenderDetailPokemon(detailpokemon);
     popupElement();
@@ -111,29 +109,36 @@ function searchPokemon() {
   const input = searchInput.value.toLowerCase();
   const spinner = document.getElementById("loadingSpinner");
   const errorMessage = document.getElementById("errorMessage");
+  const loadMoreButton = document.getElementById("loadMoreButton");
 
   spinner.style.display = "block";
   errorMessage.style.display = "none";
   errorMessage.innerText = "";
 
+  if (input.length > 0) {
+    loadMoreButton.style.display = "none";
+  } else {
+    loadMoreButton.style.display = "block";
+  }
+
   setTimeout(() => {
-    pokemon_list.innerHTML = "";
-    let found = false;
+    const filteredPokemon = Object.entries(pokemonAlreadyLoaded)
+      .filter(([name]) => name.toLowerCase().includes(input));
 
-    for (let name in pokemonAlreadyLoaded) {
-      if (name.toLowerCase().includes(input)) {
-        const pokemon = pokemonAlreadyLoaded[name];
-        pokemon_list.innerHTML += templateRenderPokemon(pokemon);
-        found = true;
-      }
-    }
+    if (filteredPokemon.length > 0) {
+      const renderedHTML = filteredPokemon
+        .map(([, pokemon]) => templateRenderPokemon(pokemon))
+        .join("");
 
-    if (!found) {
+      pokemon_list.innerHTML = renderedHTML;
+    } else {
+      pokemon_list.innerHTML = "";
       errorMessage.innerText = "❌ Kein Pokémon gefunden!";
       errorMessage.style.display = "block";
+      loadMoreButton.style.display = "none";
+
     }
 
     spinner.style.display = "none";
   }, 800);
 }
-

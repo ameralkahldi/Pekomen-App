@@ -10,6 +10,8 @@ header {
   background-color: #0d1b2a; 
   padding: 20px;
   color: white;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -18,6 +20,8 @@ header {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  max-width: 1280px;
+  width: 100%;
 }
 
 .navbar-brand {
@@ -34,12 +38,12 @@ header {
   margin-right: 10px;
 }
 .foto-pek{
-margin-left:110px;}
+}
 
 .input_serche {
   display: flex;
   gap: 10px;
-  margin-right: 100px;
+
 
 }
 
@@ -80,7 +84,7 @@ margin-left:110px;}
   flex-direction: row;
   margin-top: 10px;
   margin-bottom: 10px;
-  min-height: calc(104vh - 335px);
+  min-height: calc(112vh - 345px);
 
 }
 
@@ -210,6 +214,16 @@ margin-left:110px;}
     display: flex;
     flex-direction: column;
   }
+  .navbar{
+    display: flex;
+  }
+  .input_serche{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
- 
+ .navbar-brand{
+display: flex;
+justify-content: center;}
 }
